@@ -107,8 +107,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void initFromPreferenceValues() {
 
-        circleWaveAlertView.setCustomInterpolator(new FastOutSlowInInterpolator());
-
         @ColorInt int startColor = PreferencesHelper.getColor(getApplicationContext(),
                 R.string.key_startColor,
                 getResources().getColor(R.color.default_value_startColor));
@@ -152,6 +150,8 @@ public class MainActivity extends AppCompatActivity {
         circleWaveAlertView.setDuration(duration);
 
         circleWaveAlertView.setWaveCount(waveCount);
+
+        circleWaveAlertView.setCustomInterpolator(new FastOutSlowInInterpolator());
     }
 
     @Override
