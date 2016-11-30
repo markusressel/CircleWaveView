@@ -13,14 +13,14 @@ To use this library just include it in your depencencies using
 in your project build.gradle file and
 
     dependencies {
-        compile 'com.github.markusressel:CircleWaveView:v0.1'
+        compile 'com.github.markusressel:CircleWaveView:v0.1.1'
     }
     
 in your desired module build.gradle file.
 
 Then include it in one of your layout files like so:
 
-    <de.markusressel.android.library.circlewaveview.CircleWaveAlertView
+    <de.markusressel.android.library.circlewaveview.CircleWaveView
             android:id="@+id/circleWaveAlertView"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
@@ -45,20 +45,20 @@ You can customize the look and feel of this view very easily through either xml 
 
 or using code:
 
-    circleWaveAlertView.setStartColor(startColor);
-    circleWaveAlertView.setEndColor(endColor);
+    circleWaveView.setStartColor(startColor);
+    circleWaveView.setEndColor(endColor);
 
-    circleWaveAlertView.setStartDiameter(pxFromDp(this, startDiameter));
-    circleWaveAlertView.setTargetDiameter(pxFromDp(this, targetDiameter));
+    circleWaveView.setStartDiameter(pxFromDp(this, startDiameter));
+    circleWaveView.setTargetDiameter(pxFromDp(this, targetDiameter));
 
-    circleWaveAlertView.setStrokeWidth(pxFromDp(this, strokeWidth));
-    circleWaveAlertView.setDelayBetweenWaves(delayBetweenWaves);
+    circleWaveView.setStrokeWidth(pxFromDp(this, strokeWidth));
+    circleWaveView.setDelayBetweenWaves(delayBetweenWaves);
 
-    circleWaveAlertView.setDuration(duration);
+    circleWaveView.setDuration(duration);
 
-    circleWaveAlertView.setWaveCount(waveCount);
+    circleWaveView.setWaveCount(waveCount);
 
-    circleWaveAlertView.setCustomInterpolator(new FastOutSlowInInterpolator());
+    circleWaveView.setCustomInterpolator(new FastOutSlowInInterpolator());
 
 You can find more detailed descriptions in the javadoc of each method.
 
