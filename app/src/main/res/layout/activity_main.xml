@@ -20,7 +20,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <de.markusressel.android.library.circlewaveview.CircleWaveAlertView
+    <de.markusressel.android.library.circlewaveview.CircleWaveView
         android:id="@+id/circleWaveAlertView"
         android:layout_width="match_parent"
         android:layout_height="0dp"

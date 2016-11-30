@@ -38,7 +38,7 @@ import android.view.animation.Interpolator;
  * <p>
  * Created by Markus on 08.11.2016.
  */
-public class CircleWaveAlertView extends View {
+public class CircleWaveView extends View {
 
     private static final String TAG = "CircleWaveAlertView";
 
@@ -71,22 +71,22 @@ public class CircleWaveAlertView extends View {
     private boolean isInitialized;
 
 
-    public CircleWaveAlertView(Context context) {
+    public CircleWaveView(Context context) {
         this(context, null);
     }
 
-    public CircleWaveAlertView(Context context, AttributeSet attrs) {
+    public CircleWaveView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public CircleWaveAlertView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public CircleWaveView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
         readArguments(context, attrs);
     }
 
     @TargetApi(21)
-    public CircleWaveAlertView(Context context, AttributeSet attrs, int defStyleAttr,
+    public CircleWaveView(Context context, AttributeSet attrs, int defStyleAttr,
                                int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
 
@@ -96,31 +96,31 @@ public class CircleWaveAlertView extends View {
     private void readArguments(Context context, AttributeSet attrs) {
         // read XML attributes
         TypedArray a = context.getTheme()
-                .obtainStyledAttributes(attrs, R.styleable.CircleWaveAlertView, 0, 0);
+                .obtainStyledAttributes(attrs, R.styleable.CircleWaveView, 0, 0);
 
         try {
             int defaultColor = getAccentColor(context);
 
-            startDiameter = a.getDimensionPixelSize(R.styleable.CircleWaveAlertView_cwav_startDiameter,
+            startDiameter = a.getDimensionPixelSize(R.styleable.CircleWaveView_cwav_startDiameter,
                     0);
-            targetDiameter = a.getDimensionPixelSize(R.styleable.CircleWaveAlertView_cwav_targetDiameter,
+            targetDiameter = a.getDimensionPixelSize(R.styleable.CircleWaveView_cwav_targetDiameter,
                     -1);
-            startColor = a.getColor(R.styleable.CircleWaveAlertView_cwav_startColor, defaultColor);
+            startColor = a.getColor(R.styleable.CircleWaveView_cwav_startColor, defaultColor);
 
             @ColorInt
             int defaultEndColor = Color.argb(0,
                     Color.red(startColor),
                     Color.green(startColor),
                     Color.blue(startColor));
-            endColor = a.getColor(R.styleable.CircleWaveAlertView_cwav_endColor, defaultEndColor);
+            endColor = a.getColor(R.styleable.CircleWaveView_cwav_endColor, defaultEndColor);
 
-            strokeWidth = a.getColor(R.styleable.CircleWaveAlertView_cwav_strokeWidth,
+            strokeWidth = a.getColor(R.styleable.CircleWaveView_cwav_strokeWidth,
                     DEFAULT_STROKE_WIDTH);
-            duration = a.getInt(R.styleable.CircleWaveAlertView_cwav_durationMilliseconds,
+            duration = a.getInt(R.styleable.CircleWaveView_cwav_durationMilliseconds,
                     DEFAULT_DURATION_MILLISECONDS);
-            delayBetweenWaves = a.getInt(R.styleable.CircleWaveAlertView_cwav_delayMillisecondsBetweenWaves,
+            delayBetweenWaves = a.getInt(R.styleable.CircleWaveView_cwav_delayMillisecondsBetweenWaves,
                     -1);
-            waveCount = a.getInt(R.styleable.CircleWaveAlertView_cwav_waveCount,
+            waveCount = a.getInt(R.styleable.CircleWaveView_cwav_waveCount,
                     DEFAULT_WAVE_COUNT);
         } finally {
             a.recycle();

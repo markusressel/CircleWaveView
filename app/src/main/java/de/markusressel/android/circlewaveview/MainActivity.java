@@ -26,11 +26,11 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.animation.FastOutSlowInInterpolator;
 import android.support.v7.app.AppCompatActivity;
 
-import de.markusressel.android.library.circlewaveview.CircleWaveAlertView;
+import de.markusressel.android.library.circlewaveview.CircleWaveView;
 
 public class MainActivity extends AppCompatActivity {
 
-    private CircleWaveAlertView circleWaveAlertView;
+    private CircleWaveView circleWaveView;
 
     private BroadcastReceiver broadcastReceiver;
 
@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
-        circleWaveAlertView = (CircleWaveAlertView) findViewById(R.id.circleWaveAlertView);
+        circleWaveView = (CircleWaveView) findViewById(R.id.circleWaveAlertView);
 
         // Load Settings view
         getFragmentManager().beginTransaction()
@@ -138,20 +138,20 @@ public class MainActivity extends AppCompatActivity {
                 R.string.key_waveCount,
                 R.integer.default_value_waveCount);
 
-        circleWaveAlertView.setStartColor(startColor);
-        circleWaveAlertView.setEndColor(endColor);
+        circleWaveView.setStartColor(startColor);
+        circleWaveView.setEndColor(endColor);
 
-        circleWaveAlertView.setStartDiameter(pxFromDp(this, startDiameter));
-        circleWaveAlertView.setTargetDiameter(pxFromDp(this, targetDiameter));
+        circleWaveView.setStartDiameter(pxFromDp(this, startDiameter));
+        circleWaveView.setTargetDiameter(pxFromDp(this, targetDiameter));
 
-        circleWaveAlertView.setStrokeWidth(pxFromDp(this, strokeWidth));
+        circleWaveView.setStrokeWidth(pxFromDp(this, strokeWidth));
 
-        circleWaveAlertView.setDelayBetweenWaves(delayBetweenWaves);
-        circleWaveAlertView.setDuration(duration);
+        circleWaveView.setDelayBetweenWaves(delayBetweenWaves);
+        circleWaveView.setDuration(duration);
 
-        circleWaveAlertView.setWaveCount(waveCount);
+        circleWaveView.setWaveCount(waveCount);
 
-        circleWaveAlertView.setCustomInterpolator(new FastOutSlowInInterpolator());
+        circleWaveView.setCustomInterpolator(new FastOutSlowInInterpolator());
     }
 
     @Override

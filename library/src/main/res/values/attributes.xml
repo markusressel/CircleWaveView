@@ -17,7 +17,7 @@
 
 <resources>
 
-    <declare-styleable name="CircleWaveAlertView">
+    <declare-styleable name="CircleWaveView">
         <attr name="cwav_startDiameter" format="dimension"/>
         <attr name="cwav_targetDiameter" format="dimension"/>
         <attr name="cwav_startColor" format="color"/>
