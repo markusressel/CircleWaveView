@@ -21,7 +21,7 @@ in your desired module build.gradle file.
 Then include it in one of your layout files like so:
 
     <de.markusressel.android.library.circlewaveview.CircleWaveView
-            android:id="@+id/circleWaveAlertView"
+            android:id="@+id/circleWaveView"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
@@ -29,8 +29,8 @@ Then include it in one of your layout files like so:
 
 You can customize the look and feel of this view very easily through either xml attributes:
 
-    <de.markusressel.android.library.circlewaveview.CircleWaveAlertView
-            android:id="@+id/circleWaveAlertView"
+    <de.markusressel.android.library.circlewaveview.CircleWaveView
+            android:id="@+id/circleWaveView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
