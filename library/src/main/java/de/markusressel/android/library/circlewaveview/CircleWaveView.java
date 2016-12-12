@@ -87,7 +87,7 @@ public class CircleWaveView extends View {
 
     @TargetApi(21)
     public CircleWaveView(Context context, AttributeSet attrs, int defStyleAttr,
-                               int defStyleRes) {
+            int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
 
         readArguments(context, attrs);
@@ -509,9 +509,12 @@ public class CircleWaveView extends View {
      * @param waveCount amount of waves
      */
     public void setWaveCount(int waveCount) {
+        cleanupAnimators();
+
         this.waveCount = waveCount;
 
-        reinitialize();
+        init();
+        startAnimators();
     }
 
     /**

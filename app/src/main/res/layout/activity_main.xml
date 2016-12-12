@@ -24,7 +24,7 @@
         android:id="@+id/circleWaveAlertView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_weight="0.5"
         app:cwav_delayMillisecondsBetweenWaves="300"
         app:cwav_durationMilliseconds="3000"
         app:cwav_endColor="#0000FFFF"
@@ -37,12 +37,12 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/gray600" />
+        android:background="@color/gray600"/>
 
     <FrameLayout
         android:id="@+id/preferenceFrame"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_weight="1"/>
 
 </LinearLayout>
