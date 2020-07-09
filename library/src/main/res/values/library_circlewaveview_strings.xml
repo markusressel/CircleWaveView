@@ -25,7 +25,7 @@
 	<string name="library_circlewaveview_libraryName">CircleWaveView</string>
 	<string name="library_circlewaveview_libraryDescription">Highly customizable custom view showing circles expanding from the center like waves</string>
 	<string name="library_circlewaveview_libraryWebsite">https://github.com/markusressel/CircleWaveView</string>
-	<string name="library_circlewaveview_libraryVersion">0.1.1</string>
+	<string name="library_circlewaveview_libraryVersion">1.0.0</string>
 	<!-- OpenSource section -->
 	<string name="library_circlewaveview_isOpenSource">true</string>
 	<string name="library_circlewaveview_repositoryLink">https://github.com/markusressel/CircleWaveView</string>
