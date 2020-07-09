@@ -37,7 +37,7 @@ import kotlin.math.min
  *
  * Created by Markus on 08.11.2016.
  */
-class CircleWaveView : View {
+open class CircleWaveView : View {
 
     /**
      * The start diameter
