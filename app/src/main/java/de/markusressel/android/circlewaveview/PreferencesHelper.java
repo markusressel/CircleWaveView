@@ -18,11 +18,12 @@ package de.markusressel.android.circlewaveview;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.support.annotation.ColorInt;
-import android.support.annotation.DimenRes;
-import android.support.annotation.IntegerRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.StringRes;
+
+import androidx.annotation.ColorInt;
+import androidx.annotation.DimenRes;
+import androidx.annotation.IntegerRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.StringRes;
 
 /**
  * Simply Preferences helper for easy access to colors, integers and dimensions stored in SharedPreferences
@@ -79,7 +80,7 @@ public final class PreferencesHelper {
         if (integerAsString == null) {
             return context.getResources().getInteger(defaultValue);
         } else {
-            return Integer.valueOf(integerAsString);
+            return Integer.parseInt(integerAsString);
         }
     }
 

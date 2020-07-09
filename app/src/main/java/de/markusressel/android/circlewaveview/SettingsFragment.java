@@ -20,12 +20,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.EditTextPreference;
-import android.preference.PreferenceFragment;
-import android.support.annotation.ColorInt;
-import android.support.v4.content.LocalBroadcastManager;
 
 import com.rarepebble.colorpicker.ColorPreference;
+
+import androidx.annotation.ColorInt;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.preference.EditTextPreference;
+import androidx.preference.PreferenceFragment;
 
 /**
  * Simple preferences page
@@ -67,9 +68,7 @@ public class SettingsFragment extends PreferenceFragment implements
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
+    public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         // set preferences file name
         getPreferenceManager().setSharedPreferencesName(PreferencesHelper.SHARED_PREFS_NAME);
 

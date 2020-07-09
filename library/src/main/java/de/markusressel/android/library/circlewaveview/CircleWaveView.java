@@ -25,13 +25,14 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Build;
-import android.support.annotation.ColorInt;
-import android.support.annotation.Dimension;
-import android.support.v4.view.animation.FastOutSlowInInterpolator;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.animation.Interpolator;
+
+import androidx.annotation.ColorInt;
+import androidx.annotation.Dimension;
+import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
 
 /**
  * Simple "wave" like circle indicator view
