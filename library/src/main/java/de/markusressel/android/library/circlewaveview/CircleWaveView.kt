@@ -250,10 +250,9 @@ class CircleWaveView : View {
                 colorAnimators.add(this)
             }
 
-            val delay = if (delayBetweenWaves == -1) {
-                i * (duration / waveCount)
-            } else {
-                i * delayBetweenWaves
+            val delay = when (delayBetweenWaves) {
+                -1 -> i * (duration / waveCount)
+                else -> i * delayBetweenWaves
             }
             sizeAnimators[i].startDelay = delay.toLong()
             colorAnimators[i].startDelay = delay.toLong()
