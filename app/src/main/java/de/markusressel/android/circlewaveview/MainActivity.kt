@@ -36,10 +36,9 @@ class MainActivity : AppCompatActivity() {
         circleWaveView = findViewById<View>(R.id.circleWaveAlertView) as CircleWaveView
 
         // Load Settings view
-        fragmentManager.beginTransaction()
+        supportFragmentManager.beginTransaction()
                 .replace(R.id.preferenceFrame, SettingsFragment.newInstance())
                 .commit()
-
 
         // load settings
         initFromPreferenceValues()
@@ -147,4 +146,5 @@ class MainActivity : AppCompatActivity() {
             return dp * context.resources.displayMetrics.density
         }
     }
+
 }

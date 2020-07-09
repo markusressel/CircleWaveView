@@ -23,7 +23,8 @@ import android.os.Bundle
 import androidx.annotation.ColorInt
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.preference.EditTextPreference
-import androidx.preference.PreferenceFragment
+import androidx.preference.Preference
+import androidx.preference.PreferenceFragmentCompat
 import com.rarepebble.colorpicker.ColorPreference
 
 /**
@@ -32,7 +33,7 @@ import com.rarepebble.colorpicker.ColorPreference
  *
  * Created by Markus on 10.11.2016.
  */
-class SettingsFragment : PreferenceFragment(), OnSharedPreferenceChangeListener {
+class SettingsFragment : PreferenceFragmentCompat(), OnSharedPreferenceChangeListener {
     private lateinit var startColor: ColorPreference
     private lateinit var endColor: ColorPreference
     private lateinit var startDiameter: EditTextPreference
@@ -51,6 +52,13 @@ class SettingsFragment : PreferenceFragment(), OnSharedPreferenceChangeListener 
 
         // get references and update summaries
         initPreferences()
+    }
+
+    override fun onDisplayPreferenceDialog(preference: Preference?) {
+        when (preference) {
+            is ColorPreference -> preference.showDialog(this, 0)
+            else -> super.onDisplayPreferenceDialog(preference)
+        }
     }
 
     private fun initPreferences() {
@@ -85,7 +93,7 @@ class SettingsFragment : PreferenceFragment(), OnSharedPreferenceChangeListener 
 
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) {
         updateSummaries()
-        notifyPreferenceChanged(activity, key)
+        notifyPreferenceChanged(requireActivity(), key)
     }
 
     override fun onResume() {
