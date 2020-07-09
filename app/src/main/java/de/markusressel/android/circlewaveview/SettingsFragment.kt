@@ -71,8 +71,7 @@ class SettingsFragment : PreferenceFragment(), OnSharedPreferenceChangeListener 
         startDiameter.summary = getString(R.string.summary_dp_value, startDiameter.text)
         targetDiameter.summary = getString(R.string.summary_dp_value, targetDiameter.text)
         strokeWidth.summary = getString(R.string.summary_dp_value, strokeWidth.text)
-        delayBetweenWaves.summary = getString(R.string.summary_ms_value,
-                delayBetweenWaves.text)
+        delayBetweenWaves.summary = getString(R.string.summary_ms_value, delayBetweenWaves.text)
         duration.summary = getString(R.string.summary_ms_value, duration.text)
         waveCount.summary = waveCount.text
     }

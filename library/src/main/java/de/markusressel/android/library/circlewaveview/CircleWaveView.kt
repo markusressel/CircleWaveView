@@ -216,39 +216,40 @@ class CircleWaveView : View {
         currentDiameters = FloatArray(waveCount)
         cleanupAnimators()
         for (i in 0 until waveCount) {
-            val paint = Paint(Paint.ANTI_ALIAS_FLAG)
-            paint.color = startColor
-            paint.style = Paint.Style.STROKE
-            paint.strokeWidth = strokeWidth
-            paints.add(paint)
+            Paint(Paint.ANTI_ALIAS_FLAG).apply {
+                color = startColor
+                style = Paint.Style.STROKE
+                strokeWidth = this@CircleWaveView.strokeWidth
+                paints.add(this)
+            }
 
-            val sizeAnimator = ValueAnimator.ofFloat(startDiameter, endDiameter)
-            sizeAnimator.duration = duration.toLong()
-            sizeAnimator.repeatCount = ValueAnimator.INFINITE
-            sizeAnimator.repeatMode = ValueAnimator.RESTART
-            sizeAnimator.interpolator = interpolator
-            sizeAnimator.addUpdateListener { animation ->
-                currentDiameters[i] = animation.animatedValue as Float
+            ValueAnimator.ofFloat(startDiameter, endDiameter).apply {
+                duration = this@CircleWaveView.duration.toLong()
+                repeatCount = ValueAnimator.INFINITE
+                repeatMode = ValueAnimator.RESTART
+                interpolator = this@CircleWaveView.interpolator
+                addUpdateListener { animation ->
+                    currentDiameters[i] = animation.animatedValue as Float
 
-                // we only need to rerender the view if the first animator updates, as all animators update at the same speed
-                if (i == 0) {
-                    invalidate()
+                    // we only need to rerender the view if the first animator updates, as all animators update at the same speed
+                    if (i == 0) {
+                        invalidate()
+                    }
                 }
+                sizeAnimators.add(this)
             }
-            sizeAnimators.add(sizeAnimator)
 
-            val colorAnimator = ValueAnimator.ofObject(ArgbEvaluator(), startColor, endColor)
-            colorAnimator.duration = duration.toLong()
-            colorAnimator.repeatCount = ObjectAnimator.INFINITE
-            colorAnimator.repeatMode = ValueAnimator.RESTART
-            colorAnimator.interpolator = interpolator
-            colorAnimator.addUpdateListener { animation ->
-                this.paints[i].color = animation.animatedValue as Int
+            ValueAnimator.ofObject(ArgbEvaluator(), startColor, endColor).apply {
+                duration = this@CircleWaveView.duration.toLong()
+                repeatCount = ObjectAnimator.INFINITE
+                repeatMode = ValueAnimator.RESTART
+                interpolator = this@CircleWaveView.interpolator
+                addUpdateListener { animation ->
+                    this@CircleWaveView.paints[i].color = animation.animatedValue as Int
+                }
+                colorAnimators.add(this)
             }
-            colorAnimators.add(colorAnimator)
-        }
 
-        for (i in 0 until waveCount) {
             val delay = if (delayBetweenWaves == -1) {
                 i * (duration / waveCount)
             } else {
@@ -257,14 +258,14 @@ class CircleWaveView : View {
             sizeAnimators[i].startDelay = delay.toLong()
             colorAnimators[i].startDelay = delay.toLong()
         }
+
         isInitialized = true
     }
 
     private fun startAnimators() {
         if (isInitialized) {
-            for (i in 0 until waveCount) {
-                sizeAnimators[i].start()
-                colorAnimators[i].start()
+            (sizeAnimators + colorAnimators).forEach {
+                it.start()
             }
         }
     }
@@ -272,9 +273,8 @@ class CircleWaveView : View {
     @TargetApi(19)
     private fun pauseAnimators() {
         if (isInitialized) {
-            for (i in sizeAnimators.indices) {
-                sizeAnimators[i].pause()
-                colorAnimators[i].pause()
+            (sizeAnimators + colorAnimators).forEach {
+                it.pause()
             }
         }
     }
@@ -282,20 +282,17 @@ class CircleWaveView : View {
     @TargetApi(19)
     private fun resumeAnimators() {
         if (isInitialized) {
-            for (i in sizeAnimators.indices) {
-                sizeAnimators[i].resume()
-                colorAnimators[i].resume()
+            (sizeAnimators + colorAnimators).forEach {
+                it.resume()
             }
         }
     }
 
     private fun cancelAnimators() {
         if (isInitialized) {
-            for (i in sizeAnimators.indices) {
-                sizeAnimators[i].removeAllUpdateListeners()
-                sizeAnimators[i].cancel()
-                colorAnimators[i].removeAllUpdateListeners()
-                colorAnimators[i].cancel()
+            (sizeAnimators + colorAnimators).forEach {
+                it.removeAllUpdateListeners()
+                it.cancel()
             }
         }
     }
@@ -317,22 +314,21 @@ class CircleWaveView : View {
         val widthSize = MeasureSpec.getSize(widthMeasureSpec)
         val heightMode = MeasureSpec.getMode(heightMeasureSpec)
         val heightSize = MeasureSpec.getSize(heightMeasureSpec)
-        val width: Int
-        val height: Int
 
         // Measure Width
-        width = when (widthMode) {
+        val width = when (widthMode) {
             MeasureSpec.EXACTLY -> widthSize // Must be this size
             MeasureSpec.AT_MOST -> min(viewWidth, widthSize) // Can't be bigger than...
             else -> viewWidth // Be whatever you want
         }
 
         // Measure Height
-        height = when {
+        val height = when {
             heightMode == MeasureSpec.EXACTLY || widthMode == MeasureSpec.EXACTLY -> heightSize // Must be this size
             heightMode == MeasureSpec.AT_MOST -> min(viewHeight, heightSize) // Can't be bigger than...
             else -> viewHeight // Be whatever you want
         }
+
         setMeasuredDimension(width, height)
         if (endDiameter == -1f) {
             endDiameter = min(width, height).toFloat()
