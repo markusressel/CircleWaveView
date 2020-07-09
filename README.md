@@ -3,7 +3,7 @@ Custom view showing circles expanding from the center like waves
 
 # Usage
 
-To use this library just include it in your depencencies using
+To use this library just include it in your dependencies using
 
     repositories {
         ...
@@ -45,20 +45,15 @@ You can customize the look and feel of this view very easily through either xml 
 
 or using code:
 
-    circleWaveView.setStartColor(startColor);
-    circleWaveView.setEndColor(endColor);
-
-    circleWaveView.setStartDiameter(pxFromDp(this, startDiameter));
-    circleWaveView.setTargetDiameter(pxFromDp(this, targetDiameter));
-
-    circleWaveView.setStrokeWidth(pxFromDp(this, strokeWidth));
-    circleWaveView.setDelayBetweenWaves(delayBetweenWaves);
-
-    circleWaveView.setDuration(duration);
-
-    circleWaveView.setWaveCount(waveCount);
-
-    circleWaveView.setCustomInterpolator(new FastOutSlowInInterpolator());
+    circleWaveView.startColor = startColor
+    circleWaveView.endColor = endColor
+    circleWaveView.startDiameter = pxFromDp(this, startDiameter)
+    circleWaveView.endDiameter = pxFromDp(this, targetDiameter)
+    circleWaveView.strokeWidth = pxFromDp(this, strokeWidth)
+    circleWaveView.delayBetweenWaves = delayBetweenWaves
+    circleWaveView.duration = duration
+    circleWaveView.waveCount = waveCount
+    circleWaveView.interpolator = FastOutSlowInInterpolator()
 
 You can find more detailed descriptions in the javadoc of each method.
 
