@@ -13,56 +13,43 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package de.markusressel.android.circlewaveview
 
-package de.markusressel.android.circlewaveview;
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
+import android.os.Bundle
+import android.view.View
+import androidx.annotation.ColorInt
+import androidx.appcompat.app.AppCompatActivity
+import androidx.interpolator.view.animation.FastOutSlowInInterpolator
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import de.markusressel.android.library.circlewaveview.CircleWaveView
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.os.Bundle;
-
-import androidx.annotation.ColorInt;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-import de.markusressel.android.library.circlewaveview.CircleWaveView;
-
-public class MainActivity extends AppCompatActivity {
-
-    private CircleWaveView circleWaveView;
-
-    private BroadcastReceiver broadcastReceiver;
-
-    private static float pxFromDp(final Context context, final float dp) {
-        return dp * context.getResources().getDisplayMetrics().density;
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        setContentView(R.layout.activity_main);
-
-        circleWaveView = (CircleWaveView) findViewById(R.id.circleWaveAlertView);
+class MainActivity : AppCompatActivity() {
+    private lateinit var circleWaveView: CircleWaveView
+    private lateinit var broadcastReceiver: BroadcastReceiver
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+        circleWaveView = findViewById<View>(R.id.circleWaveAlertView) as CircleWaveView
 
         // Load Settings view
-        getFragmentManager().beginTransaction()
+        fragmentManager.beginTransaction()
                 .replace(R.id.preferenceFrame, SettingsFragment.newInstance())
-                .commit();
+                .commit()
 
 
         // load settings
-        initFromPreferenceValues();
+        initFromPreferenceValues()
 
         // this receiver will update the view if a preference has changed
-        broadcastReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                if (SettingsFragment.INTENT_ACTION_PREFERENCE_CHANGED.equals(intent.getAction())) {
-                    String key = intent.getStringExtra(SettingsFragment.KEY_PREFERENCE_KEY);
-
-                    initFromPreferenceValues();
+        broadcastReceiver = object : BroadcastReceiver() {
+            override fun onReceive(context: Context, intent: Intent) {
+                if (SettingsFragment.INTENT_ACTION_PREFERENCE_CHANGED == intent.action) {
+                    val key = intent.getStringExtra(SettingsFragment.KEY_PREFERENCE_KEY)
+                    initFromPreferenceValues()
 
                     //                    if (getString(R.string.key_activeIndicatorFillColor).equals(key)) {
                     //                        @ColorInt int activeIndicatorColorFill = PreferencesHelper.getColor(getApplicationContext(), R.string.key_activeIndicatorFillColor, getResources().getColor(R.color.default_value_activeIndicatorFillColor));
@@ -102,71 +89,62 @@ public class MainActivity extends AppCompatActivity {
                     //                    }
                 }
             }
-        };
+        }
     }
 
-    private void initFromPreferenceValues() {
-
-        @ColorInt int startColor = PreferencesHelper.getColor(getApplicationContext(),
+    private fun initFromPreferenceValues() {
+        @ColorInt val startColor = PreferencesHelper.getColor(applicationContext,
                 R.string.key_startColor,
-                getResources().getColor(R.color.default_value_startColor));
-
-        @ColorInt int endColor = PreferencesHelper.getColor(getApplicationContext(),
+                resources.getColor(R.color.default_value_startColor))
+        @ColorInt val endColor = PreferencesHelper.getColor(applicationContext,
                 R.string.key_endColor,
-                getResources().getColor(R.color.default_value_endColor));
-
-        float startDiameter = PreferencesHelper.getDimen(getApplicationContext(),
+                resources.getColor(R.color.default_value_endColor))
+        val startDiameter = PreferencesHelper.getDimen(applicationContext,
                 R.string.key_startDiameter,
-                R.dimen.default_value_startDiameter);
-        float targetDiameter = PreferencesHelper.getDimen(getApplicationContext(),
+                R.dimen.default_value_startDiameter)
+        val targetDiameter = PreferencesHelper.getDimen(applicationContext,
                 R.string.key_targetDiameter,
-                R.dimen.default_value_targetDiameter);
-
-        float strokeWidth = PreferencesHelper.getDimen(getApplicationContext(),
+                R.dimen.default_value_targetDiameter)
+        val strokeWidth = PreferencesHelper.getDimen(applicationContext,
                 R.string.key_strokeWidth,
-                R.dimen.default_value_strokeWidth);
-
-        int delayBetweenWaves = PreferencesHelper.getInteger(getApplicationContext(),
+                R.dimen.default_value_strokeWidth)
+        val delayBetweenWaves = PreferencesHelper.getInteger(applicationContext,
                 R.string.key_delayBetweenWaves,
-                R.integer.default_value_delayBetweenWaves);
-
-        int duration = PreferencesHelper.getInteger(getApplicationContext(),
+                R.integer.default_value_delayBetweenWaves)
+        val duration = PreferencesHelper.getInteger(applicationContext,
                 R.string.key_duration,
-                R.integer.default_value_duration);
-
-        int waveCount = PreferencesHelper.getInteger(getApplicationContext(),
+                R.integer.default_value_duration)
+        val waveCount = PreferencesHelper.getInteger(applicationContext,
                 R.string.key_waveCount,
-                R.integer.default_value_waveCount);
-
-        circleWaveView.setStartColor(startColor);
-        circleWaveView.setEndColor(endColor);
-
-        circleWaveView.setStartDiameter(pxFromDp(this, startDiameter));
-        circleWaveView.setTargetDiameter(pxFromDp(this, targetDiameter));
-
-        circleWaveView.setStrokeWidth(pxFromDp(this, strokeWidth));
-
-        circleWaveView.setDelayBetweenWaves(delayBetweenWaves);
-        circleWaveView.setDuration(duration);
-
-        circleWaveView.setWaveCount(waveCount);
-
-        circleWaveView.setCustomInterpolator(new FastOutSlowInInterpolator());
+                R.integer.default_value_waveCount)
+        circleWaveView.startColor = startColor
+        circleWaveView.endColor = endColor
+        circleWaveView.startDiameter = pxFromDp(this, startDiameter)
+        circleWaveView.endDiameter = pxFromDp(this, targetDiameter)
+        circleWaveView.strokeWidth = pxFromDp(this, strokeWidth)
+        circleWaveView.delayBetweenWaves = delayBetweenWaves
+        circleWaveView.duration = duration
+        circleWaveView.waveCount = waveCount
+        circleWaveView.interpolator = FastOutSlowInInterpolator()
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(SettingsFragment.INTENT_ACTION_PREFERENCE_CHANGED);
-        LocalBroadcastManager.getInstance(getApplicationContext())
-                .registerReceiver(broadcastReceiver, intentFilter);
+    public override fun onStart() {
+        super.onStart()
+        val intentFilter = IntentFilter()
+        intentFilter.addAction(SettingsFragment.INTENT_ACTION_PREFERENCE_CHANGED)
+        LocalBroadcastManager.getInstance(applicationContext)
+                .registerReceiver(broadcastReceiver, intentFilter)
     }
 
-    @Override
-    public void onStop() {
-        LocalBroadcastManager.getInstance(getApplicationContext())
-                .unregisterReceiver(broadcastReceiver);
-        super.onStop();
+    public override fun onStop() {
+        LocalBroadcastManager.getInstance(applicationContext)
+                .unregisterReceiver(broadcastReceiver)
+        super.onStop()
+    }
+
+    companion object {
+        private fun pxFromDp(context: Context, dp: Float): Float {
+            return dp * context.resources.displayMetrics.density
+        }
     }
 }
