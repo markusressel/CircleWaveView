@@ -18,7 +18,7 @@ in your project build.gradle file and
 
 ```groovy
     dependencies {
-        compile 'com.github.markusressel:CircleWaveView:v1.0.0'
+        compile 'com.github.markusressel:CircleWaveView:v1.0.1'
     }
 ```
     
