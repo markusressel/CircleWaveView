@@ -1,6 +1,8 @@
 # CircleWaveView
 Custom view showing circles expanding from the center like waves
 
+![CircleWaveView Demo](demo.gif)
+
 # Usage
 
 To use this library just include it in your dependencies using
